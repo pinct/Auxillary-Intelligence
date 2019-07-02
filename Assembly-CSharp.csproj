@@ -108,8 +108,14 @@
      <Compile Include="Assets\Cinemachine\Timeline\CinemachineMixer.cs" />
      <Compile Include="Assets\Cinemachine\Timeline\CinemachineShot.cs" />
      <Compile Include="Assets\Cinemachine\Timeline\CinemachineTrack.cs" />
+     <Compile Include="Assets\CursorsAndCrosshairs\CursorChanger.cs" />
      <Compile Include="Assets\CyberPunk\Scripts\Done_BGScroller.cs" />
      <Compile Include="Assets\CyberPunk\Scripts\Perspective2DSortMode.cs" />
+     <Compile Include="Assets\Particle Ingredient Pack\Script\csColorChangerinSampleScene.cs" />
+     <Compile Include="Assets\Particle Ingredient Pack\Script\csDemoScenceControl.cs" />
+     <Compile Include="Assets\Particle Ingredient Pack\Script\csMouseOrbit.cs" />
+     <Compile Include="Assets\Particle Ingredient Pack\Script\csParticleMake.cs" />
+     <Compile Include="Assets\Particle Ingredient Pack\Script\csRotate.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />
@@ -119,6 +125,8 @@
      <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
      <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
      <Compile Include="Assets\Scripts\ChangeRobot.cs" />
+     <Compile Include="Assets\Scripts\ParticleControl.cs" />
+     <Compile Include="Assets\Scripts\PlatformControl.cs" />
      <None Include="Assets\Cinemachine\ReleaseNotes.txt" />
      <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
  <Reference Include="Unity.Timeline.Editor">
