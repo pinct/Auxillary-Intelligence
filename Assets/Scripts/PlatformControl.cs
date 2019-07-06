@@ -15,6 +15,7 @@ public class PlatformControl : MonoBehaviour
 	public GameObject startbot;
 	public GameObject VCAM;
 	public GameObject trans;
+	public GameObject particle;
 	float xPosition;
 	Vector3 Position;
 	public Texture2D mouseOverCursor;
@@ -37,6 +38,7 @@ public class PlatformControl : MonoBehaviour
 			off.GetComponent<SpriteRenderer>().enabled = true;
 			on.GetComponent<SpriteRenderer>().enabled = false;
 			canmove = false;
+			particle.SetActive(false);
 		}
 		if (canmove && intrigger)
 		{
@@ -61,6 +63,7 @@ public class PlatformControl : MonoBehaviour
 		startbot.GetComponent<ChangeRobot>().currbot.GetComponent<PlatformerCharacter2D>().enabled = false;
 		startbot.GetComponent<ChangeRobot>().currbot.GetComponent<Platformer2DUserControl>().enabled = false;
 		canmove = true;
+		particle.SetActive(true);
 		LastBot = startbot.GetComponent<ChangeRobot>().currbot;
 		VCAM.GetComponent<CinemachineVirtualCamera>().Follow = platform.transform;
 		on.GetComponent<SpriteRenderer>().enabled = true;

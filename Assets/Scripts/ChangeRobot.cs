@@ -12,6 +12,7 @@ public class ChangeRobot : MonoBehaviour
 	public GameObject VCAM;
 	public Texture2D mouseOverCursor;
 	public CursorMode cursorMode = CursorMode.Auto;
+	public GameObject particles;
 	Vector2 cursorHotspot;
     //Start is called before the first frame update
     void Start()
@@ -23,6 +24,10 @@ public class ChangeRobot : MonoBehaviour
 			robot.GetComponent<PlatformerCharacter2D>().enabled = false;
 			robot.GetComponent<Platformer2DUserControl>().enabled = false;
 		}
+		else
+		{
+			StartCoroutine(Startup());
+		}
     }
 
     // Update is called once per frame
@@ -32,7 +37,11 @@ public class ChangeRobot : MonoBehaviour
 		{
 			robot.GetComponent<PlatformerCharacter2D>().enabled = false;
 			robot.GetComponent<Platformer2DUserControl>().enabled = false;
+			robot.GetComponent<Animator>().SetBool("IsActive", false);
+			robot.GetComponent<Animator>().SetBool("Ground", true);
+			particles.SetActive(false);
 		}
+		currbot = startbot.GetComponent<ChangeRobot>().currbot;
     }
 	void OnMouseDown()
 	{
@@ -43,9 +52,11 @@ public class ChangeRobot : MonoBehaviour
 		}
 		robot.GetComponent<PlatformerCharacter2D>().enabled = true;
 		robot.GetComponent<Platformer2DUserControl>().enabled = true;
+		robot.GetComponent<Animator>().SetBool("IsActive", true);
 		VCAM.GetComponent<CinemachineVirtualCamera>().Follow = robot.transform;
 		startbot.GetComponent<ChangeRobot>().currbot = robot;
 		currbot = robot;
+		particles.SetActive(true);
 	}
 	void OnMouseEnter()
 	{
@@ -57,5 +68,17 @@ public class ChangeRobot : MonoBehaviour
 	void OnMouseExit()
 	{
 		Cursor.SetCursor(null, cursorHotspot, cursorMode);
+	}
+	IEnumerator Startup()
+	{
+		robot.GetComponent<Animator>().SetBool("Ground", true);
+		robot.GetComponent<Animator>().SetBool("IsActive", true);
+		robot.GetComponent<PlatformerCharacter2D>().enabled = false;
+		robot.GetComponent<Platformer2DUserControl>().enabled = false;
+		particles.SetActive(false);
+		yield return new WaitForSeconds(3.1f);
+		particles.SetActive(true);
+		robot.GetComponent<PlatformerCharacter2D>().enabled = true;
+		robot.GetComponent<Platformer2DUserControl>().enabled = true;
 	}
 }
