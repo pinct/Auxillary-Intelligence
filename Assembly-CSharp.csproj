@@ -125,6 +125,7 @@
      <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
      <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
      <Compile Include="Assets\Scripts\ChangeRobot.cs" />
+     <Compile Include="Assets\Scripts\CraneController.cs" />
      <Compile Include="Assets\Scripts\ParticleControl.cs" />
      <Compile Include="Assets\Scripts\PlatformControl.cs" />
      <None Include="Assets\Cinemachine\ReleaseNotes.txt" />
