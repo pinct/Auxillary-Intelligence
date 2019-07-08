@@ -10,12 +10,14 @@ public class CraneController : MonoBehaviour
 	bool canmove = false;
 	public GameObject startbot;
 	public GameObject VCAM;
-	public GameObject particle;
 	float xPosition;
 	Vector3 Position;
 	public Texture2D mouseOverCursor;
 	public CursorMode cursorMode = CursorMode.Auto;
 	Vector2 cursorHotspot;
+	bool toggle = false;
+	public GameObject magnet;
+	GameObject LastBot;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,19 +32,59 @@ public class CraneController : MonoBehaviour
         if (startbot.GetComponent<ChangeRobot>().currbot.name != "Crane")
 		{
 			canmove = false;
-			particle.SetActive(false);
+			crane.GetComponent<Animator>().SetBool("IsActive", false);
+			if (LastBot != null)
+			{
+				LastBot.GetComponent<Rigidbody2D>().isKinematic = false;
+			}
+			toggle = false;
 		}
 		if (canmove)
 		{
 			Position = new Vector3(xPosition, crane.transform.position.y, 0);
 			crane.transform.position = Position;
-			if (Input.GetKey(KeyCode.D) && xPosition < 42.0f)
+			if (Input.GetKey(KeyCode.D))
 			{
 				xPosition = xPosition + 2.0f * Time.deltaTime;
+				crane.GetComponent<Animator>().SetBool("IsWalkingRight", true);
+				crane.GetComponent<Animator>().SetBool("IsWalking", false);
 			}
-			if (Input.GetKey(KeyCode.A) && xPosition > 34.0f)
+			if (Input.GetKey(KeyCode.A))
 			{
 				xPosition = xPosition - 2.0f * Time.deltaTime;
+				crane.GetComponent<Animator>().SetBool("IsWalking", true);
+				crane.GetComponent<Animator>().SetBool("IsWalkingRight", false);
+			}
+			else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+			{
+				crane.GetComponent<Animator>().SetBool("IsWalking", false);
+				crane.GetComponent<Animator>().SetBool("IsWalkingRight", false);
+			}
+			if (Input.GetButtonUp("Jump"))
+			{
+				if (!toggle)
+				{
+					crane.GetComponent<Animator>().SetBool("IsTransformed", true);
+					StartCoroutine(Toggling());
+				}
+				else if (toggle)
+				{
+					crane.GetComponent<Animator>().SetBool("IsTransformed", false);
+					toggle = !toggle;
+				}
+			}
+			if (toggle)
+			{
+				crane.GetComponent<Animator>().SetBool("IsTransformed", true);
+				LastBot.GetComponent<Rigidbody2D>().isKinematic = true;
+				if (((magnet.transform.position.x - 1.0f) < LastBot.transform.position.x) && (LastBot.transform.position.x < (magnet.transform.position.x + 1.0f)))
+				{
+					LastBot.transform.position = Vector2.MoveTowards(LastBot.transform.position, magnet.transform.position, 0.1f);
+				}
+			}
+			else
+			{
+				LastBot.GetComponent<Rigidbody2D>().isKinematic = false;
 			}
 		}
     }
@@ -51,9 +93,10 @@ public class CraneController : MonoBehaviour
 		startbot.GetComponent<ChangeRobot>().currbot.GetComponent<PlatformerCharacter2D>().enabled = false;
 		startbot.GetComponent<ChangeRobot>().currbot.GetComponent<Platformer2DUserControl>().enabled = false;
 		canmove = true;
-		particle.SetActive(true);
+		LastBot = startbot.GetComponent<ChangeRobot>().currbot;
 		VCAM.GetComponent<CinemachineVirtualCamera>().Follow = crane.transform;
 		startbot.GetComponent<ChangeRobot>().currbot = crane;
+		crane.GetComponent<Animator>().SetBool("IsActive", true);
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{
@@ -73,5 +116,10 @@ public class CraneController : MonoBehaviour
 	void OnMouseExit()
 	{
 		Cursor.SetCursor(null, cursorHotspot, cursorMode);
+	}
+	IEnumerator Toggling()
+	{
+		yield return new WaitForSeconds(1.0f);
+		toggle = !toggle;
 	}
 }

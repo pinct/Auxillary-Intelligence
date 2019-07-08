@@ -45,7 +45,7 @@ public class ChangeRobot : MonoBehaviour
     }
 	void OnMouseDown()
 	{
-		if (currbot.name != "Platform")
+		if (currbot.tag != "Platform" && currbot.tag != "Forklift" && currbot.tag != "Crane")
 		{
 			currbot.GetComponent<PlatformerCharacter2D>().enabled = false;
 			currbot.GetComponent<Platformer2DUserControl>().enabled = false;
@@ -57,6 +57,7 @@ public class ChangeRobot : MonoBehaviour
 		startbot.GetComponent<ChangeRobot>().currbot = robot;
 		currbot = robot;
 		particles.SetActive(true);
+		robot.GetComponent<PlayerHealth>().ChangeHealth(-1);
 	}
 	void OnMouseEnter()
 	{

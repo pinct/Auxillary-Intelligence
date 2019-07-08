@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fire
+  - Forklift
+  - Platform
+  - Crane
   layers:
   - Default
   - TransparentFX
