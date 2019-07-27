@@ -21,6 +21,7 @@ public class _4kController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		LiftSprite.GetComponent<Animator>().SetFloat("Height", (Lift.transform.position.y + 3.3f)/-4.36f);
 		xPosition = fork.transform.position.x;
 		cursorHotspot = new Vector2 (mouseOverCursor.width / 2, mouseOverCursor.height / 2);
 		Cursor.SetCursor(null, cursorHotspot, cursorMode);
@@ -39,27 +40,27 @@ public class _4kController : MonoBehaviour
 		{
 			Position = new Vector3(xPosition, fork.transform.position.y, 0);
 			fork.transform.position = Position;
-			if (Input.GetKey(KeyCode.D))
+			if (Input.GetKey(KeyCode.D) && xPosition < 89.2)
 			{
 				xPosition = xPosition + 2.0f * Time.deltaTime;
 				Lift.transform.position = new Vector2(Lift.transform.position.x + 2.0f * Time.deltaTime, Lift.transform.position.y);
 				fork.GetComponent<Animator>().SetBool("IsWalking", true);
 			}
-			if (Input.GetKey(KeyCode.A))
+			if (Input.GetKey(KeyCode.A) && xPosition > 74.25)
 			{
 				xPosition = xPosition - 2.0f * Time.deltaTime;
 				Lift.transform.position = new Vector2(Lift.transform.position.x - 2.0f * Time.deltaTime, Lift.transform.position.y);
 				fork.GetComponent<Animator>().SetBool("IsWalking", true);
 			}
-			if (Input.GetKey(KeyCode.Space) && Lift.transform.position.y < -1.53f)
+			if (Input.GetKey(KeyCode.Space) && Lift.transform.position.y < -3.3f)
 			{
 				Lift.transform.position = new Vector2(Lift.transform.position.x, Lift.transform.position.y + 0.1f);
-				LiftSprite.GetComponent<Animator>().SetFloat("Height", (Lift.transform.position.y + 1.53f)/-6.13f);
+				LiftSprite.GetComponent<Animator>().SetFloat("Height", (Lift.transform.position.y + 3.3f)/-4.36f);
 			}
 			if (Input.GetKey(KeyCode.LeftControl) && Lift.transform.position.y > -7.66f)
 			{
 				Lift.transform.position = new Vector2(Lift.transform.position.x, Lift.transform.position.y - 0.1f);
-				LiftSprite.GetComponent<Animator>().SetFloat("Height", (Lift.transform.position.y + 1.53f)/-6.13f);
+				LiftSprite.GetComponent<Animator>().SetFloat("Height", (Lift.transform.position.y + 3.3f)/-4.36f);
 			}
 			else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
 			{

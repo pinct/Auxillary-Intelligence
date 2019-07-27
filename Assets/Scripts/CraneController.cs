@@ -43,13 +43,13 @@ public class CraneController : MonoBehaviour
 		{
 			Position = new Vector3(xPosition, crane.transform.position.y, 0);
 			crane.transform.position = Position;
-			if (Input.GetKey(KeyCode.D))
+			if (Input.GetKey(KeyCode.D) && xPosition < 65.9)
 			{
 				xPosition = xPosition + 2.0f * Time.deltaTime;
 				crane.GetComponent<Animator>().SetBool("IsWalkingRight", true);
 				crane.GetComponent<Animator>().SetBool("IsWalking", false);
 			}
-			if (Input.GetKey(KeyCode.A))
+			if (Input.GetKey(KeyCode.A) && xPosition > 59.2)
 			{
 				xPosition = xPosition - 2.0f * Time.deltaTime;
 				crane.GetComponent<Animator>().SetBool("IsWalking", true);
@@ -79,7 +79,7 @@ public class CraneController : MonoBehaviour
 				LastBot.GetComponent<Rigidbody2D>().isKinematic = true;
 				if (((magnet.transform.position.x - 1.0f) < LastBot.transform.position.x) && (LastBot.transform.position.x < (magnet.transform.position.x + 1.0f)))
 				{
-					LastBot.transform.position = Vector2.MoveTowards(LastBot.transform.position, magnet.transform.position, 0.1f);
+					LastBot.transform.position = Vector2.MoveTowards(LastBot.transform.position, magnet.transform.position, 0.2f);
 				}
 			}
 			else
@@ -119,7 +119,7 @@ public class CraneController : MonoBehaviour
 	}
 	IEnumerator Toggling()
 	{
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(1.3f);
 		toggle = !toggle;
 	}
 }
